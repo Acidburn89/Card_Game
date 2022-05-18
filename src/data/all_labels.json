@@ -1,0 +1,15 @@
+{
+  "aoeCardGame": {
+    "headline": "AOE - Card Game"
+  },
+  "details": {
+    "headline": "Details",
+    "submit": "Submit Player Data"
+  },
+  "overviewTile": {
+    "headline": "Overview",
+    "ascending": "Sort ascending",
+    "descending": "Sort descending",
+    "selectLabel": "Card Order"
+  }
+}
