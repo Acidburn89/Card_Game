@@ -1,5 +1,7 @@
 import { Paper, IconButton, Grid, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
+import Player from '../../model/Player'
+import React from 'react'
 
 const PreviewCardPaper = styled(Paper, {
   name: "StyledPaper",
@@ -20,24 +22,16 @@ const PreviewCardButton = styled(IconButton, {
   '&:hover': { backgroundColor: "transparent" }
 })
 
+interface Props {
+  player: Player,
+  setShowDetails: React.Dispatch<React.SetStateAction<boolean>>,
+  setPlayer: React.Dispatch<React.SetStateAction<Player>>
+}
 
-const PreviewCard = props => {
-  const {
-    player,
-    setShowDetails,
-    setPlayer
-  } = props
-
-  const renderPlayerData = Object.keys(player).map((key) => {
-    return (
-      <Typography key={key}>
-        {player[key]}
-      </Typography>
-    )
-  })
-
+const PreviewCard: React.FC<(Props)> = ({player: {id, realName, playerName, asset}, setShowDetails, setPlayer}) => {
+  
   const handlePreviewCardClick = () => {
-    setPlayer(player)
+    setPlayer({id, realName, playerName, asset})
     setShowDetails(true)
   }
 
@@ -48,7 +42,15 @@ const PreviewCard = props => {
           onClick={handlePreviewCardClick}
         >
           <PreviewCardPaper>
-            {renderPlayerData}
+            <Typography>
+              {realName}
+            </Typography>
+            <Typography>
+              {playerName}
+            </Typography>
+            <Typography>
+              {asset}
+            </Typography>
           </PreviewCardPaper>
         </PreviewCardButton>
       </Grid>

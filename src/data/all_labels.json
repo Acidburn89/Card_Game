@@ -11,5 +11,10 @@
     "ascending": "Sort ascending",
     "descending": "Sort descending",
     "selectLabel": "Card Order"
+  },
+  "player": {
+    "realName": "Real Name",
+    "playerName": "Player Name",
+    "asset": "Asset"
   }
 }

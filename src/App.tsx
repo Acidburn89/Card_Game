@@ -9,7 +9,7 @@ import {
 import { styled } from '@mui/material/styles'
 
 import Content from "./components/Overview/Content"
-import labels from './data/all_labels'
+import labels from './data/all_labels.json'
 
 const RootBox = styled(Box, {
   name: "RootBox",

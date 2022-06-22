@@ -6,24 +6,42 @@ import PreviewCard from './PreviewCard'
 import Player from '../../model/Player'
 
 import axios from 'axios'
+import React from 'react'
 
-const Content = props => {
-  const {
-    labels:{
-      overviewTile: {
-        headline,
-        ascending,
-        descending,
-        selectLabel,
-      }
+
+interface Props {
+  labels: {
+    overviewTile: {
+      headline: string,
+      ascending: string,
+      descending: string,
+      selectLabel: string,
     },
-    labels,
-  } = props
+    details: {
+      headline: string,
+      submit: string,
+    },
+    player: {
+      realName: string,
+      playerName: string,
+      asset: string,
+    },
+  },
+}
 
-  const [sortType, setSortType] = useState('')
-  const [showDetails, setShowDetails] = useState(false)
-  const [players, setPlayers] = useState([])
-  const [player, setPlayer] = useState({})
+const Content: React.FC<Props> = ({
+  labels: {overviewTile: {headline, ascending, descending, selectLabel}, details}
+}) => {
+
+  const [sortType, setSortType] = useState<string>("")
+  const [showDetails, setShowDetails] = useState<boolean>(false)
+  const [players, setPlayers] = useState<Array<Player>>([])
+  const [player, setPlayer] = useState<Player>({
+    id: 0,
+    realName: '',
+    playerName: '',
+    asset: ''
+  })
  
   useMemo(() => {
     const playerData = async () => {
@@ -36,8 +54,9 @@ const Content = props => {
     playerData()
   }, [])
 
+  //loading state
   useEffect(() => {
-    const sortPlayers = sortType => {
+    const sortPlayers = (sortType: string) => {
       if (sortType !== '') {
         const sorted = [...players].sort(
           (playerA, playerB) => playerA.realName.localeCompare(playerB.realName)
@@ -49,17 +68,11 @@ const Content = props => {
   }, [sortType])
 
   const playerCards = players.map((player, index) => {
-    player = new Player(
-      player.realName,
-      player.playerName,
-      player.asset
-    )
-
+    
     return (
       <PreviewCard
         key={index}
         player={player}
-        labels={props.labels}
         setShowDetails={setShowDetails}
         setPlayer={setPlayer}
       />
@@ -99,7 +112,7 @@ const Content = props => {
         <Grid container item xs={12}>
           <DetailView
             player={player}
-            labels={labels}
+            labels={{details, player}}
           />
         </Grid>
       )}
